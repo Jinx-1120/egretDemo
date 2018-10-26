@@ -1,26 +1,43 @@
+/**
+ * 游戏主入口文件
+ */
 class Main extends egret.DisplayObjectContainer {
 
     public constructor() {
         super();
         console.log('start');
-        
+        // 添加初始化事件
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.addStage, this);
     }
+    // 移除事件 并初始化游戏
     private addStage() {
         this.removeEventListener(egret.Event.ADDED_TO_STAGE, this.addStage, this);
         this.init()
     }
 
-    private gv:GameView ;
+    /**
+     * 游戏参数
+     * gameview 画布
+     * timer 定时器
+     * gameoverPanel 游戏结束画布
+     * startgamePanel 开始游戏画布
+     */
+    private gameview:GameView ;
     private timer:egret.Timer;
     private gameoverPanel:GameOverPanel;
     private startgamePanel:StartGamePanel;
 
-    private init():void
-    {
-        this.gv = new GameView();
-        this.addChild(this.gv);
-        this.gv.addEventListener(GameEvent.GAME_OVER, this.gameover,this);
+    /**
+     * 初始化游戏函数
+     * 初始化gameview
+     * 初始化定时器
+     * 初始化开始|结束 画布
+     * 添加事件监听
+     */
+    private init():void {
+        this.gameview = new GameView();
+        this.addChild(this.gameview);
+        this.gameview.addEventListener(GameEvent.GAME_OVER, this.gameover,this);
         this.timer = new egret.Timer(20,0);
         this.timer.addEventListener(egret.TimerEvent.TIMER, this.timers, this);
 
@@ -32,51 +49,37 @@ class Main extends egret.DisplayObjectContainer {
         this.addChild(this.startgamePanel);
     }
 
-    private timers()
-    {
-        this.gv.move();
+    /**
+     * 自动移动
+     */
+    private timers() {
+        this.gameview.move();
     }
 
-    private gameover(evt:GameEvent):void
-    {
+    /**
+     * 游戏结束
+     */
+    private gameover(evt:GameEvent):void {
         this.timer.stop();
         this.gameoverPanel.update();
         this.addChild(this.gameoverPanel);
     }
 
-    private startgame(evt:GameEvent):void
-    {
+    /**
+     * 开始游戏
+     * 重新设置游戏速度 分数
+     * 去除游戏开始|结束画布
+     */
+    private startgame(evt:GameEvent):void {
         GameData.speed = 10;
         GameData.setScore(0);
-        this.gv.startgame();
-        if(this.startgamePanel.parent)
-        {
+        this.gameview.startgame();
+        if(this.startgamePanel.parent) {
             this.removeChild(this.startgamePanel);
         }
-        if(this.gameoverPanel.parent)
-        {
+        if(this.gameoverPanel.parent) {
             this.removeChild(this.gameoverPanel);
         }
         this.timer.start();
     }
-    // public constructor() {
-    //     super();
-    //     console.log('start');
-        
-    //     let group:GroupRect = new GroupRect();
-    //     this.addChild(group);
-    //     group.createBlackRect();
-    //     // group.addEventListener('gameover', this.gameover, this);
-    //     // group.addEventListener('clickRight', this.clickRight, this);
-    // }
-
-    // private gameover() {
-    //     console.log('gameover');
-
-    // }
-
-    // private clickRight() {
-    //     console.log('clickRight');
-    // }
-    
 }

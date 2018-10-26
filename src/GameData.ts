@@ -1,5 +1,4 @@
-class GameData
-{
+class GameData {
     private static score:number = 0; //分数
     public static row:number = 4;   //行数
     public static column:number = 4; //列数
@@ -8,42 +7,58 @@ class GameData
     private static _boxWidth:number = 0;   //盒子宽度
     private static _boxHeight:number = 0;  //盒子高度
 
-    public static getScore():number
-    {
+    /**
+     * getScore
+     * 获取分数
+     */
+    public static getScore():number {
         return GameData.score;
     }
 
-    public static setScore(val:number)
-    {
+    /**
+     * setScore
+     * 设置分数
+     */
+    public static setScore(val:number) {
         GameData.score = val;
         GameData.speed = 10+GameData.score;
     }
 
-    public static getBoxWidth():number
-    {
-        if( GameData._boxWidth == 0)
-        {
+    /**
+     * getBoxWidth
+     * 获取格子宽度
+     */
+    public static getBoxWidth():number {
+        if( GameData._boxWidth == 0) {
             GameData._boxWidth = egret.MainContext.instance.stage.stageWidth / GameData.column;
         }
         return GameData._boxWidth;
     }
 
-    public static getBoxHeight():number
-    {
-        if( GameData._boxHeight == 0)
-        {
+    /**
+     * getBoxHeight
+     * 获取格子高度
+     */
+    public static getBoxHeight():number {
+        if( GameData._boxHeight == 0) {
             GameData._boxHeight = egret.MainContext.instance.stage.stageHeight / GameData.row;
         }
         return GameData._boxHeight;
     }
 
-    public static getStageHeight():number
-    {
+    /**
+     * getStageHeight
+     * 获取当前屏幕高度
+     */
+    public static getStageHeight():number {
         return egret.MainContext.instance.stage.stageHeight;
     }
 
-    public static getStageWidth():number
-    {
+    /**
+     * getStageWidth
+     * 获取当前屏幕宽度
+     */
+    public static getStageWidth():number {
         return egret.MainContext.instance.stage.stageWidth;
     }
 
