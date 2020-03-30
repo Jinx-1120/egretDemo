@@ -3,7 +3,7 @@
 ## 使用（白鹭引擎）Egret编写的游戏
 
 ![demo](./image/gif.gif)
-> [游戏地址](http://123.56.220.217/games/)
+> [游戏地址](https://docs.jinhaidi.cn/games)
 
 ## 准备工作
 
